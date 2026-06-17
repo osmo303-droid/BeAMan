@@ -1,22 +1,25 @@
 {
   "name": "Be A Man",
-  "short_name": "BeAMan",
+  "short_name": "Be A Man",
   "description": "Daily sarcastic Boston Be A Man quotes. Be a man.",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#020617",
   "theme_color": "#facc15",
+  "id": "be-a-man-app",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "https://via.placeholder.com/192x192/facc15/020617?text=BAM",
+      "src": "https://via.placeholder.com/192x192/1e2937/facc15?text=BAM",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "https://via.placeholder.com/512x512/facc15/020617?text=BAM",
+      "src": "https://via.placeholder.com/512x512/1e2937/facc15?text=BAM",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
