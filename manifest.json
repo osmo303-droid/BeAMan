@@ -1,28 +1,22 @@
 {
-  "id": "/BeAMan/",
   "name": "Be A Man",
   "short_name": "BeAMan",
-  "description": "Daily sarcastic Be A Man quotes inspired by Boston Be A Man. Funny, tough, and totally over-the-top.",
-  "start_url": "/BeAMan/",
-  "scope": "/BeAMan/",
+  "description": "Daily sarcastic Boston Be A Man quotes. Be a man.",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#020617",
-  "theme_color": "#fbbf24",
+  "theme_color": "#facc15",
   "orientation": "portrait-primary",
-  "lang": "en",
-  "categories": ["entertainment", "lifestyle"],
   "icons": [
     {
-      "src": "https://via.placeholder.com/192x192/f59e0b/020617?text=BE+MAN",
+      "src": "https://via.placeholder.com/192x192/facc15/020617?text=BAM",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "https://via.placeholder.com/512x512/f59e0b/020617?text=BE+MAN",
+      "src": "https://via.placeholder.com/512x512/facc15/020617?text=BAM",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ]
 }
