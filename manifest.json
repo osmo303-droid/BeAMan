@@ -11,12 +11,12 @@
   "categories": ["entertainment", "lifestyle"],
   "icons": [
     {
-      "src": "https://picsum.photos/id/1015/192/192.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/5968/5968890.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://picsum.photos/id/1015/512/512.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/5968/5968890.png",
       "sizes": "512x512",
       "type": "image/png"
     }
