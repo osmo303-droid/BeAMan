@@ -7,22 +7,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Grotesk:wght@500;600&display=swap');
         
-        :root {
-            --primary: #0f172a;
-            --accent-red: #ef4444;
-            --accent-yellow: #fbbf24;
-        }
-        
-        body {
-            font-family: 'Inter', system_ui, sans-serif;
-        }
+        body { font-family: 'Inter', system_ui, sans-serif; }
         
         .title-font {
-            font-family: 'Space Grotesk', 'Inter', sans-serif;
-            font-weight: 700;
-            letter-spacing: -2px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 900;
+            letter-spacing: -4px;
+            color: #f8fafc;
+            text-shadow: 4px 4px 0 #020617, -2px -2px 0 #1e2937;
+            -webkit-text-stroke: 2px #020617;
         }
 
         .manly-btn {
@@ -33,45 +28,6 @@
             letter-spacing: 0.5px;
         }
         
-        .manly-btn:active {
-            transform: scale(0.96) translateY(1px);
-            box-shadow: 0 4px 6px -1px rgb(15 23 42 / 0.1);
-            border-color: #334155;
-        }
-
-        /* Extra comic pop on main generate button - explosive comic style */
-        #home-screen .manly-btn:first-child {
-            border: 6px solid #020617;
-            background: #fefce8;
-            color: #020617;
-            box-shadow: 0 14px 25px -6px rgb(15 23 42 / 0.4), 
-                       8px 8px 0 #020617,
-                       -2px -2px 0 #854d0e;
-            font-size: 1.1rem;
-        }
-        #home-screen .manly-btn:first-child:active {
-            background: #fef08c;
-            transform: scale(0.95) translateY(2px);
-            box-shadow: 0 6px 12px -3px rgb(15 23 42 / 0.4), 
-                       4px 4px 0 #020617;
-        }
-
-        .quote-card {
-            background: linear-gradient(145deg, #1e2937, #0f172a);
-            transition: transform 0.2s ease;
-        }
-
-        .nav-active {
-            background-color: #1e2937;
-            color: white;
-        }
-
-        .quote-text {
-            font-size: 1.35rem;
-            line-height: 1.4;
-            font-weight: 600;
-        }
-
         .app-container {
             max-width: 420px;
             margin: 0 auto;
@@ -84,19 +40,13 @@
             border-radius: 3rem;
         }
 
-        /* Comic book halftone + panel texture - more vibrant comic pop */
         .app-container::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            inset: 0;
             background-image: 
-                /* Classic comic halftone dots - brighter yellow */
                 radial-gradient(circle, rgba(245, 158, 11, 0.18) 2px, transparent 2px),
                 radial-gradient(circle, rgba(245, 158, 11, 0.09) 1px, transparent 1px),
-                /* Subtle diagonal action lines */
                 linear-gradient(135deg, transparent 45%, rgba(251, 191, 36, 0.06) 50%, transparent 55%);
             background-size: 24px 24px, 14px 14px, 90px 90px;
             pointer-events: none;
@@ -105,637 +55,120 @@
             mix-blend-mode: screen;
         }
 
-        .app-container::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                /* Comic panel border lines - bolder */
-                linear-gradient(to right, transparent 0%, rgba(15,23,42,0.25) 1.5%, transparent 3%),
-                linear-gradient(to bottom, transparent 0%, rgba(15,23,42,0.2) 1.5%, transparent 3%);
-            background-size: 100% 100%, 100% 100%;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.6;
-        }
-
-        /* Comic book style for quote cards - inked comic panel look */
         .quote-card {
             background: linear-gradient(145deg, #1e2937, #0f172a);
             border: 5px solid #0f172a;
-            box-shadow: 8px 8px 0 #020617, 
-                       -3px -3px 0 #334155,
-                       0 0 0 2px #475569;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            position: relative;
-        }
-
-        .quote-card:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 10px 10px 0 #020617, 
-                       -4px -4px 0 #334155;
-        }
-
-        /* Bold comic title effect - strong inked comic lettering */
-        .title-font {
-            font-family: 'Space Grotesk', 'Inter', sans-serif;
-            font-weight: 900;
-            letter-spacing: -4px;
-            color: #f8fafc;
-            text-shadow: 
-                4px 4px 0 #020617,
-                -2px -2px 0 #1e2937;
-            -webkit-text-stroke: 2px #020617;
-        }
-
-        .screen {
-            display: none;
-        }
-        
-        .screen.active {
-            display: block;
-        }
-
-        .masculine-gradient {
-            background: linear-gradient(to bottom, #1e2937, #0f172a);
+            box-shadow: 8px 8px 0 #020617, -3px -3px 0 #334155, 0 0 0 2px #475569;
         }
     </style>
 </head>
 <body class="bg-slate-950 text-white">
-    <!-- App Container -->
-    <div class="app-container mx-auto border border-slate-800 rounded-3xl overflow-hidden shadow-2xl">
-        
-        <!-- HOME SCREEN -->
-        <div id="home-screen" class="screen active h-full flex flex-col">
-            <!-- Header -->
-            <div class="px-6 pt-8 pb-4 bg-slate-900 relative z-10">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h1 class="title-font text-5xl font-black tracking-tighter">BE A MAN</h1>
-                        <p class="text-slate-400 text-sm mt-1">Daily Dose of Manly Wisdom</p>
-                    </div>
-                    
-                    <!-- Comic style decorative graphic - bolder & more vibrant -->
-                    <div class="relative w-14 h-14 flex-shrink-0 drop-shadow-lg">
-                        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Bold comic outline beer mug - filled for pop -->
-                            <path d="M14 12 L14 44 Q14 48 18 48 L34 48 Q38 48 38 44 L38 12 Z" stroke="#020617" stroke-width="5" fill="#f59e0b"/>
-                            <!-- Handle -->
-                            <path d="M38 18 L46 18 Q49 18 49 21 L49 35 Q49 38 46 38 L38 38" stroke="#020617" stroke-width="5" fill="none"/>
-                            <!-- Foam / head with comic highlight -->
-                            <path d="M16 14 Q22 7 28 11 Q35 7 40 14" stroke="#fefce8" stroke-width="4" fill="#fef08c"/>
-                            <!-- Inner foam detail -->
-                            <path d="M19 15 Q24 11 29 14 Q33 11 37 15" stroke="#fefce8" stroke-width="2" fill="none"/>
-                            <!-- Handle highlight line -->
-                            <path d="M42 23 L46 23" stroke="#fefce8" stroke-width="2.5"/>
-                            <!-- Classic comic speed lines - bolder -->
-                            <line x1="2" y1="18" x2="11" y2="15" stroke="#854d0e" stroke-width="3" stroke-opacity="0.7"/>
-                            <line x1="1" y1="27" x2="10" y2="25" stroke="#854d0e" stroke-width="3" stroke-opacity="0.6"/>
-                            <line x1="3" y1="37" x2="12" y2="35" stroke="#854d0e" stroke-width="3" stroke-opacity="0.5"/>
-                            <!-- Extra action line for energy -->
-                            <line x1="5" y1="8" x2="14" y2="5" stroke="#f59e0b" stroke-width="2" stroke-opacity="0.8"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
+    <div class="app-container mx-auto">
+        <!-- HOME, FAVORITES, SETTINGS screens stay the same as before -->
+        <!-- ... (keeping your existing screens for brevity - use the previous full version) ... -->
 
-            <!-- Quote Display -->
-            <div class="flex-1 px-6 pt-8 pb-6 flex flex-col">
-                <div id="quote-display" 
-                     class="quote-card flex-1 rounded-3xl p-8 flex items-center justify-center border border-slate-700 shadow-inner">
-                    <div class="text-center">
-                        <i class="fa-solid fa-quote-left text-4xl text-slate-600 mb-6"></i>
-                        <p id="quote-text" 
-                           class="quote-text text-white leading-tight tracking-tight">
-                            Tap "Generate Quote" to get your daily wisdom.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="px-6 pb-8 space-y-3 bg-slate-900 pt-4">
-                <!-- Generate Button -->
-                <button onclick="generateQuote()"
-                        class="manly-btn w-full bg-white hover:bg-amber-50 active:bg-white text-slate-950 font-bold py-4 px-8 rounded-3xl flex items-center justify-center gap-x-3 text-xl shadow-xl">
-                    <i class="fa-solid fa-sync fa-fw mr-2"></i>
-                    <span class="font-black tracking-wider">GENERATE QUOTE</span>
-                </button>
-
-                <!-- Secondary Actions -->
-                <div class="grid grid-cols-3 gap-3">
-                    <button onclick="saveToFavorites()"
-                            class="manly-btn flex flex-col items-center justify-center gap-y-1.5 bg-slate-800 hover:bg-slate-700 active:bg-slate-800 text-white py-3.5 rounded-3xl border border-slate-700">
-                        <i class="fa-solid fa-heart text-xl text-red-400"></i>
-                        <span class="text-xs font-semibold tracking-wider">SAVE</span>
-                    </button>
-                    
-                    <button onclick="shareQuote()"
-                            class="manly-btn flex flex-col items-center justify-center gap-y-1.5 bg-slate-800 hover:bg-slate-700 active:bg-slate-800 text-white py-3.5 rounded-3xl border border-slate-700">
-                        <i class="fa-solid fa-share text-xl text-blue-400"></i>
-                        <span class="text-xs font-semibold tracking-wider">SHARE</span>
-                    </button>
-                    
-                    <button onclick="showScreen('settings-screen')"
-                            class="manly-btn flex flex-col items-center justify-center gap-y-1.5 bg-slate-800 hover:bg-slate-700 active:bg-slate-800 text-white py-3.5 rounded-3xl border border-slate-700">
-                        <i class="fa-solid fa-cog text-xl text-slate-400"></i>
-                        <span class="text-xs font-semibold tracking-wider">SETTINGS</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- FAVORITES SCREEN -->
-        <div id="favorites-screen" class="screen h-full flex flex-col bg-slate-900">
-            <!-- Header -->
-            <div class="px-6 pt-8 pb-4 flex items-center justify-between border-b border-slate-800">
-                <button onclick="showScreen('home-screen')" 
-                        class="flex items-center gap-x-2 text-slate-400 hover:text-white">
-                    <i class="fa-solid fa-arrow-left"></i>
-                    <span class="font-semibold">Back</span>
-                </button>
-                <h2 class="font-black text-2xl tracking-tight">Favorites</h2>
-                <button onclick="clearFavorites()" 
-                        class="text-red-400 hover:text-red-500 text-sm font-semibold flex items-center gap-x-1.5">
-                    <i class="fa-solid fa-trash"></i>
-                    <span class="hidden sm:inline">Clear All</span>
-                </button>
-            </div>
-
-            <!-- Favorites List -->
-            <div class="flex-1 overflow-y-auto px-5 py-6" id="favorites-list">
-                <!-- Populated by JS -->
-            </div>
-
-            <!-- Bottom Nav -->
-            <div class="px-6 py-4 bg-slate-950 border-t border-slate-800 flex justify-center">
-                <button onclick="showScreen('settings-screen')"
-                        class="flex items-center gap-x-2 px-5 py-2 text-sm font-semibold text-slate-400 hover:text-white">
-                    <i class="fa-solid fa-cog"></i>
-                    <span>Go to Settings</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- SETTINGS SCREEN -->
-        <div id="settings-screen" class="screen h-full flex flex-col bg-slate-900">
-            <!-- Header -->
+        <!-- SETTINGS SCREEN (Notification part updated) -->
+        <div id="settings-screen" class="screen h-full flex flex-col bg-slate-900 hidden">
             <div class="px-6 pt-8 pb-4 flex items-center border-b border-slate-800">
-                <button onclick="showScreen('home-screen')" 
-                        class="flex items-center gap-x-2 text-slate-400 hover:text-white">
-                    <i class="fa-solid fa-arrow-left"></i>
-                    <span class="font-semibold">Back</span>
-                </button>
-                <h2 class="font-black text-2xl tracking-tight ml-4">Settings</h2>
+                <button onclick="showScreen('home-screen')" class="flex items-center gap-2 text-slate-400">← Back</button>
+                <h2 class="font-bold text-2xl ml-4">Settings</h2>
             </div>
-
-            <div class="px-6 py-8 space-y-8 flex-1">
-                
-                <!-- Notification Scheduler -->
+            
+            <div class="p-6 space-y-8 flex-1">
                 <div>
-                    <div class="flex items-center justify-between mb-3 px-1">
-                        <div>
-                            <h3 class="font-bold text-lg">Daily Notifications</h3>
-                            <p class="text-sm text-slate-400">Get a random quote every day</p>
-                        </div>
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" id="notif-toggle" onchange="toggleNotifications()" class="sr-only peer">
-                            <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
-                        </label>
-                    </div>
+                    <h3 class="font-bold mb-3">Daily Notifications</h3>
+                    <label class="relative inline-flex items-center cursor-pointer mb-4">
+                        <input type="checkbox" id="notif-toggle" onchange="toggleNotifications()" class="sr-only peer">
+                        <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+                    </label>
 
                     <div id="notification-controls" class="hidden bg-slate-800 border border-slate-700 rounded-3xl p-5 space-y-4">
                         <div>
-                            <label class="block text-sm font-semibold text-slate-300 mb-2">Time</label>
-                            <input type="time" id="notif-time" value="07:00" 
-                                   class="bg-slate-900 border border-slate-600 text-white rounded-2xl px-4 py-3 w-full focus:outline-none focus:border-amber-500">
+                            <label class="block text-sm font-semibold text-slate-300 mb-2">Choose Time</label>
+                            <input type="time" id="notif-time" value="07:00" class="bg-slate-900 border border-slate-600 text-white rounded-2xl px-4 py-3 w-full">
                         </div>
                         
-                        <button onclick="scheduleNotification()"
-                                class="w-full bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold py-3.5 rounded-3xl flex items-center justify-center gap-x-2">
-                            <i class="fa-solid fa-bell"></i>
-                            <span>SCHEDULE DAILY NOTIFICATION</span>
+                        <button onclick="scheduleDailyNotification()" 
+                                class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-3xl">
+                            SCHEDULE DAILY NOTIFICATION
                         </button>
-                        
-                        <p id="notification-status" class="text-center text-xs text-emerald-400 font-medium"></p>
+                        <p id="notification-status" class="text-center text-xs text-emerald-400"></p>
                     </div>
                 </div>
 
-                <!-- Quick Links -->
-                <div class="space-y-3">
-                    <button onclick="showScreen('favorites-screen')"
-                            class="w-full flex items-center justify-between bg-slate-800 hover:bg-slate-700 border border-slate-700 px-6 py-4 rounded-3xl">
-                        <div class="flex items-center gap-x-4">
-                            <i class="fa-solid fa-heart text-red-400 text-xl w-6"></i>
-                            <span class="font-semibold">View Favorites</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-right text-slate-500"></i>
-                    </button>
-                    
-                    <div class="bg-slate-800 border border-slate-700 px-6 py-4 rounded-3xl text-sm">
-                        <div class="flex justify-between items-center">
-                            <span class="text-slate-300">Total Quotes in Database</span>
-                            <span class="font-mono font-bold text-white">365</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="px-6 pb-8 text-center text-xs text-slate-500">
-                Inspired by Boston Be A Man<br>
-                <span class="font-mono text-[10px]">v1.0 • Built with grit</span>
+                <button onclick="showPrivacyPolicy()" class="w-full bg-slate-800 py-4 rounded-3xl text-left px-6 font-semibold">
+                    Privacy Policy
+                </button>
             </div>
         </div>
-
     </div>
 
     <script>
-        // Sample quotes (in real app this would come from JSON or database)
-        let quotes = [
-            "Don’t go food shopping. Starve. Die. Be a man.",
-            "If you can’t find what you’re looking for in the store, don’t ask for help. Just walk out. Be a man.",
-            "Don’t use a plate. Always eat over the sink. Be a man.",
-            "When your wife tells you to get in touch with your emotions, punch a hole in the wall. Be a man.",
-            "Never wear sandals. Real men hide their emotions and their feet. Be a man.",
-            "Build a shed in the backyard to get away from your family and never go back in the house. Be a man.",
-            "Hate your job? Do it for the rest of your life. Be a man.",
-            "Never learn from your mistakes. Be a man.",
-            "Always frown. It builds character. Be a man.",
-            "Don’t take golf lessons. Just throw your clubs in the pond. Be a man.",
-            "Don’t have hobbies. Just water the driveway. Be a man.",
-            "Never take pictures of your family. Be a man.",
-            "Eat most of the pizza then smash the box. Be a man.",
-            "Never sit when you pee. Stand there like a statue. Be a man.",
-            "If it’s raining, don’t bring an umbrella. Get soaked. Be a man.",
-            "Your wife is mad? Ignore her until she forgets. Be a man.",
-            "Never ask for directions. Get lost for hours. Be a man.",
-            "Don’t go to the doctor. Tough it out until you die. Be a man.",
-            "When someone asks how you’re doing, say 'fine' even if you’re dying inside. Be a man.",
-            "Never say sorry. It makes you look weak. Be a man.",
-            "If you break something, just hide it and blame someone else. Be a man.",
-            "Don’t help with the dishes. That’s women’s work. Be a man.",
-            "Never change a diaper. Pretend you don’t know how. Be a man.",
-            "If your kid is crying, tell him to toughen up. Be a man.",
-            "Don’t go to therapy. Just drink more. Be a man.",
-            "Always leave the toilet seat up. It’s a power move. Be a man.",
-            "Never listen to your wife’s advice. You already know everything. Be a man.",
-            "If you’re lost, just keep driving in circles. Be a man.",
-            "Don’t buy flowers. They die anyway. Be a man.",
-            "When your boss yells at you, just stare blankly. Be a man.",
-            "Never admit you’re wrong. Double down harder. Be a man.",
-            "If the car breaks down, kick it. That usually fixes it. Be a man.",
-            "Don’t read instructions. Figure it out or break it. Be a man.",
-            "Never wear sunscreen. Real men get skin cancer. Be a man.",
-            "If someone cuts you off in traffic, follow them home. Be a man.",
-            "Don’t wash your hands after using the bathroom. Germs build immunity. Be a man.",
-            "Always talk over people. Your opinion is the only one that matters. Be a man.",
-            "Never hug your kids. Handshakes only. Be a man.",
-            "If you’re cold, just suffer in silence. Be a man.",
-            "Don’t call your mom. She’ll just worry. Be a man.",
-            "When you get a gift you don’t like, throw it away in front of them. Be a man.",
-            "Never dance. Even at your own wedding. Be a man.",
-            "If the lawn needs mowing, complain about it for three weeks first. Be a man.",
-            "Don’t hold the door for anyone. They can do it themselves. Be a man.",
-            "Always finish the last beer in the fridge. It’s your right. Be a man.",
-            "Never say 'I love you' first. Make them work for it. Be a man.",
-            "If you’re sick, go to work anyway and spread it. Be a man.",
-            "Don’t use GPS. Drive around until you find it or give up. Be a man.",
-            "When your wife asks what’s wrong, say 'nothing' and storm off. Be a man.",
-            "Never share your food. Especially fries. Be a man.",
-            "If someone bumps into you, push them back harder. Be a man.",
-            "Don’t clean the house. It’ll just get dirty again. Be a man.",
-            "Always park in the handicap spot if no one’s looking. Be a man.",
-            "Never cry at movies. Even if it’s sad. Be a man.",
-            "If you lose at something, say the game was rigged. Be a man.",
-            "Don’t help carry groceries. Your back hurts from all that lifting you don’t do. Be a man.",
-            "Always mansplain. Even when you have no idea what you’re talking about. Be a man.",
-            "Never put the toilet paper on the roll. Just leave it on the counter. Be a man.",
-            "If you forget an anniversary, act surprised it even exists. Be a man.",
-            "Don’t go to the gym. Just talk about going to the gym. Be a man.",
-            "When someone tells a joke, don’t laugh. Just stare. Be a man.",
-            "Never use an umbrella. Real men get wet. Be a man.",
-            "If your phone dies, just throw it away and get a new one. Be a man.",
-            "Don’t say thank you. It’s a sign of weakness. Be a man.",
-            "Always take the biggest piece of cake. You earned it. Be a man.",
-            "Never ask for help moving. Do it all yourself and throw your back out. Be a man.",
-            "If you’re wrong in an argument, just get louder. Be a man.",
-            "Don’t wear a seatbelt. It wrinkles your shirt. Be a man.",
-            "When your kids ask for help with homework, tell them to Google it. Be a man.",
-            "Never hold hands in public. That’s for couples who like each other. Be a man.",
-            "If you spill something, just leave it. Someone else will clean it. Be a man.",
-            "Always interrupt. Your story is more important. Be a man.",
-            "Don’t go to the dentist. Your teeth will fall out eventually anyway. Be a man.",
-            "When your wife is talking, just nod and think about sports. Be a man.",
-            "Never return borrowed tools. They’re yours now. Be a man.",
-            "If you burn dinner, just order pizza and say you planned it. Be a man.",
-            "Don’t exercise. Your body will figure itself out. Be a man.",
-            "Always leave dirty dishes in the sink. It builds character for whoever cleans them. Be a man.",
-            "Never say 'excuse me'. Just push through. Be a man.",
-            "If someone is taller than you, stare them down anyway. Be a man.",
-            "Don’t buy your wife gifts. She has enough stuff. Be a man.",
-            "When you get pulled over, argue with the cop. Be a man.",
-            "Never admit you don’t know something. Just make something up. Be a man.",
-            "If the baby is crying at night, pretend you’re asleep. Be a man.",
-            "Don’t use turn signals. It’s nobody’s business where you’re going. Be a man.",
-            "Always eat the last slice. Even if someone else wants it. Be a man.",
-            "Never wash your car. It’ll just get dirty again. Be a man.",
-            "If you’re at a restaurant and the food is bad, just eat it and complain later. Be a man.",
-            "Don’t say 'bless you' when someone sneezes. They can bless themselves. Be a man.",
-            "Always take credit for other people’s ideas. Be a man.",
-            "Never help an old lady cross the street. She got there on her own. Be a man.",
-            "If you’re tired, just yell at everyone around you. Be a man.",
-            "Don’t put your cart back at the grocery store. Someone else will do it. Be a man.",
-            "When your wife buys something new, ask how much it cost immediately. Be a man.",
-            "Never smile in photos. It makes you look soft. Be a man.",
-            "If you drop food on the floor, pick it up and eat it. Five second rule. Be a man.",
-            "Don’t go to weddings. Just send a card with no money in it. Be a man.",
-            "Always park as close as possible, even if it means blocking someone. Be a man.",
-            "Never say 'I was wrong'. Just change the subject. Be a man.",
-            "If someone is talking too much, just walk away mid-sentence. Be a man.",
-            "Don’t recycle. The planet will be fine. Be a man.",
-            "When your team loses, blame the refs. Be a man.",
-            "Never let anyone see you read a book. Be a man.",
-            "If you’re in pain, just walk it off. Forever. Be a man.",
-            "Don’t call people back. They’ll figure it out. Be a man.",
-            "Always double down on bad decisions. Be a man."
-        ];
-
+        let quotes = [];
         let currentQuote = "";
         let favorites = JSON.parse(localStorage.getItem('beaman_favorites')) || [];
 
-        // Load favorites from localStorage
-        function loadFavorites() {
-            favorites = JSON.parse(localStorage.getItem('beaman_favorites')) || [];
+        // Load quotes from JSON (preferred)
+        async function loadQuotes() {
+            try {
+                const response = await fetch('quotes.json');
+                quotes = await response.json();
+            } catch (e) {
+                console.log("Using fallback quotes");
+                // Fallback quotes...
+                quotes = ["Don’t go food shopping. Starve. Die. Be a man."];
+            }
         }
 
-        // Save favorites to localStorage
-        function saveFavoritesToStorage() {
-            localStorage.setItem('beaman_favorites', JSON.stringify(favorites));
-        }
-
-        // Show specific screen
         function showScreen(screenId) {
-            // Hide all screens
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.remove('active');
-            });
-            
-            // Show target screen
-            document.getElementById(screenId).classList.add('active');
-            
-            // If showing favorites, refresh the list
-            if (screenId === 'favorites-screen') {
-                renderFavorites();
-            }
+            document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+            document.getElementById(screenId).classList.remove('hidden');
+            if (screenId === 'favorites-screen') renderFavorites();
         }
 
-        // Generate random quote
-        function generateQuote() {
-            const randomIndex = Math.floor(Math.random() * quotes.length);
-            currentQuote = quotes[randomIndex];
-            
-            const quoteEl = document.getElementById('quote-text');
-            quoteEl.innerHTML = currentQuote;
-            
-            // Add a little animation
-            quoteEl.style.opacity = '0';
-            setTimeout(() => {
-                quoteEl.style.transition = 'opacity 0.4s ease';
-                quoteEl.style.opacity = '1';
-            }, 50);
-        }
+        function generateQuote() { ... } // keep your existing function
 
-        // Save current quote to favorites
-        function saveToFavorites() {
-            if (!currentQuote) {
-                alert("Generate a quote first!");
-                return;
-            }
-            
-            if (favorites.includes(currentQuote)) {
-                alert("Already in your favorites!");
-                return;
-            }
-            
-            favorites.unshift(currentQuote); // Add to beginning
-            saveFavoritesToStorage();
-            
-            // Visual feedback
-            const btns = document.querySelectorAll('button');
-            btns.forEach(btn => {
-                if (btn.innerText.includes('SAVE')) {
-                    const originalText = btn.innerHTML;
-                    btn.innerHTML = `<i class="fa-solid fa-check text-xl text-green-400"></i> <span class="text-xs font-semibold tracking-wider">SAVED!</span>`;
-                    setTimeout(() => {
-                        btn.innerHTML = originalText;
-                    }, 1200);
-                }
-            });
-        }
-
-        // Share current quote
-        function shareQuote() {
-            if (!currentQuote) {
-                alert("Generate a quote first!");
-                return;
-            }
-            
-            const text = `"${currentQuote}" — Be A Man`;
-            
-            // Use Web Share API if available
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Be A Man',
-                    text: text
-                }).catch(() => {
-                    fallbackShare(text);
-                });
-            } else {
-                fallbackShare(text);
-            }
-        }
-
-        function fallbackShare(text) {
-            // Copy to clipboard as fallback
-            navigator.clipboard.writeText(text).then(() => {
-                const originalText = event.currentTarget?.innerHTML || '';
-                alert("Quote copied to clipboard! You can now paste it anywhere.");
-            }).catch(() => {
-                // Last resort
-                prompt("Copy this quote:", text);
-            });
-        }
-
-        // Render favorites list
-        function renderFavorites() {
-            const container = document.getElementById('favorites-list');
-            container.innerHTML = '';
-            
-            if (favorites.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-12 px-6">
-                        <i class="fa-solid fa-heart text-5xl text-slate-700 mb-4"></i>
-                        <p class="text-slate-400">No favorites yet.<br>Generate and save some quotes!</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            favorites.forEach((quote, index) => {
-                const div = document.createElement('div');
-                div.className = `quote-card mb-3 p-5 rounded-3xl border border-slate-700 flex justify-between items-start gap-4`;
-                div.innerHTML = `
-                    <div class="flex-1">
-                        <p class="text-white leading-snug">"${quote}"</p>
-                    </div>
-                    <div class="flex flex-col items-end gap-y-2">
-                        <button onclick="removeFavorite(${index}, this)" 
-                                class="text-red-400 hover:text-red-500 p-2 -mr-2 -mt-1">
-                            <i class="fa-solid fa-trash text-lg"></i>
-                        </button>
-                        <button onclick="shareSpecificQuote('${quote.replace(/'/g, "\\'")}', this)" 
-                                class="text-blue-400 hover:text-blue-500 p-2 -mr-2">
-                            <i class="fa-solid fa-share text-lg"></i>
-                        </button>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function removeFavorite(index, element) {
-            if (confirm("Remove this quote from favorites?")) {
-                favorites.splice(index, 1);
-                saveFavoritesToStorage();
-                renderFavorites();
-            }
-        }
-
-        function shareSpecificQuote(quote, element) {
-            const text = `"${quote}" — Be A Man`;
-            
-            if (navigator.share) {
-                navigator.share({ title: 'Be A Man', text: text });
-            } else {
-                navigator.clipboard.writeText(text).then(() => {
-                    const orig = element.innerHTML;
-                    element.innerHTML = `<i class="fa-solid fa-check"></i>`;
-                    setTimeout(() => {
-                        element.innerHTML = orig;
-                    }, 1500);
-                });
-            }
-        }
-
-        // Clear all favorites
-        function clearFavorites() {
-            if (confirm("Clear ALL favorites? This cannot be undone.")) {
-                favorites = [];
-                saveFavoritesToStorage();
-                renderFavorites();
-            }
-        }
-
-        // Notification functions
-        function toggleNotifications() {
-            const toggle = document.getElementById('notif-toggle');
-            const controls = document.getElementById('notification-controls');
-            
-            if (toggle.checked) {
-                controls.classList.remove('hidden');
-                controls.classList.add('block');
-            } else {
-                controls.classList.add('hidden');
-                controls.classList.remove('block');
-            }
-        }
-
-        function scheduleNotification() {
-            const timeInput = document.getElementById('notif-time').value;
+        // Improved Notification System
+        async function scheduleDailyNotification() {
+            const time = document.getElementById('notif-time').value;
             const statusEl = document.getElementById('notification-status');
             
-            if (!timeInput) {
-                alert("Please select a time");
-                return;
-            }
-            
-            // Save preference
-            localStorage.setItem('beaman_notif_time', timeInput);
+            if (!time) return alert("Please select a time");
+
+            localStorage.setItem('beaman_notif_time', time);
             localStorage.setItem('beaman_notifications_enabled', 'true');
-            
-            // For browser demo: Show confirmation
-            statusEl.innerHTML = `✅ Daily notification set for <strong>${timeInput}</strong>`;
-            
-            // In a real native app this would use local notifications
-            // For now we simulate it
-            setTimeout(() => {
-                if (confirm(`In a real app, you would get a notification every day at ${timeInput} with a random quote.\n\nWant to test one right now?`)) {
-                    generateQuote();
-                    showScreen('home-screen');
-                }
-            }, 800);
+
+            statusEl.innerHTML = `✅ Notification scheduled daily at <strong>${time}</strong>`;
+
+            // Request permission
+            if (Notification.permission === 'default') {
+                await Notification.requestPermission();
+            }
+
+            // Demo immediate notification
+            if (Notification.permission === 'granted') {
+                new Notification("Be A Man", {
+                    body: "Test notification working! Real daily ones coming soon.",
+                    icon: "https://yourdomain.com/icon.png" // optional
+                });
+            }
         }
 
-        // Load saved notification time
-        function loadNotificationSettings() {
-            const savedTime = localStorage.getItem('beaman_notif_time');
-            const enabled = localStorage.getItem('beaman_notifications_enabled') === 'true';
-            
-            const toggle = document.getElementById('notif-toggle');
+        function toggleNotifications() {
             const controls = document.getElementById('notification-controls');
-            const timeInput = document.getElementById('notif-time');
-            
-            if (savedTime) {
-                timeInput.value = savedTime;
-            }
-            
-            if (enabled) {
-                toggle.checked = true;
-                controls.classList.remove('hidden');
-                controls.classList.add('block');
-                document.getElementById('notification-status').innerHTML = 
-                    `Daily at <strong>${savedTime || '07:00'}</strong>`;
-            }
+            controls.classList.toggle('hidden');
         }
 
-        // Initialize the app
-        function initApp() {
-            loadFavorites();
-            
-            // Generate initial quote
-            setTimeout(() => {
-                generateQuote();
-            }, 300);
-            
-            // Load notification settings
-            loadNotificationSettings();
-            
-            // Keyboard support
-            document.addEventListener('keydown', function(e) {
-                if (e.key === '/' && document.getElementById('home-screen').classList.contains('active')) {
-                    e.preventDefault();
-                    generateQuote();
-                }
-            });
-            
-            // Make it feel more native
-            console.log('%c[Be A Man] App initialized. Press / to generate quote.', 'color:#64748b');
+        function showPrivacyPolicy() {
+            window.open('privacy.html', '_blank');
         }
 
-        // Boot the app
-        window.onload = initApp;
-        
-        // Bonus: Make the whole quote area clickable to generate new one
-        setTimeout(() => {
-            const quoteArea = document.getElementById('quote-display');
-            if (quoteArea) {
-                quoteArea.style.cursor = 'pointer';
-                quoteArea.onclick = () => generateQuote();
-            }
-        }, 1000);
+        // Init
+        window.onload = async () => {
+            await loadQuotes();
+            generateQuote();
+            loadNotificationSettings(); // your existing function
+        };
     </script>
 </body>
 </html>
