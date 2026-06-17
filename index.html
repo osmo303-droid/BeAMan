@@ -58,7 +58,7 @@
 </head>
 <body class="bg-slate-950 text-white">
     <div class="app-container mx-auto relative z-10">
-        
+
         <!-- HOME SCREEN -->
         <div id="home-screen" class="screen h-full flex flex-col">
             <div class="px-6 pt-8 pb-4 bg-slate-900">
@@ -109,7 +109,7 @@
         <div id="favorites-screen" class="screen h-full flex flex-col bg-slate-900 hidden">
             <div class="px-6 pt-8 pb-4 flex items-center justify-between border-b border-slate-700">
                 <button onclick="showScreen('home-screen')" class="text-amber-400">← Back</button>
-                <h2 class="font-bold text-2xl">Favorites</h2>
+                <h2 class="font-bold text-2xl">My Favorites</h2>
                 <button onclick="clearFavorites()" class="text-red-400">Clear All</button>
             </div>
             <div id="favorites-list" class="flex-1 p-6 overflow-auto space-y-4"></div>
@@ -122,19 +122,25 @@
                 <h2 class="font-bold text-2xl ml-4">Settings</h2>
             </div>
             
-            <div class="p-6 space-y-8">
+            <div class="p-6 space-y-6">
+                <!-- Notifications -->
                 <div>
                     <h3 class="font-bold mb-4">Daily Notifications</h3>
                     <div class="bg-slate-800 rounded-3xl p-5">
                         <input type="time" id="notif-time" value="08:00" class="bg-slate-900 w-full p-4 rounded-2xl text-white">
-                        <button onclick="scheduleDailyNotification()" 
-                                class="w-full mt-4 bg-emerald-600 py-4 rounded-3xl font-bold">
+                        <button onclick="scheduleDailyNotification()" class="w-full mt-4 bg-emerald-600 py-4 rounded-3xl font-bold">
                             SCHEDULE DAILY QUOTE
                         </button>
-                        <p id="notification-status" class="text-center text-sm mt-3 text-emerald-400"></p>
                     </div>
                 </div>
 
+                <!-- Favorites -->
+                <button onclick="showScreen('favorites-screen')" 
+                        class="w-full bg-slate-800 hover:bg-slate-700 py-5 rounded-3xl font-semibold flex items-center justify-center gap-3">
+                    ❤️ My Favorites
+                </button>
+
+                <!-- Privacy -->
                 <button onclick="showPrivacyPolicy()" 
                         class="w-full bg-slate-800 py-5 rounded-3xl font-semibold">
                     Privacy Policy
@@ -188,10 +194,10 @@
             const container = document.getElementById('favorites-list');
             container.innerHTML = '';
             if (favorites.length === 0) {
-                container.innerHTML = '<p class="text-center text-slate-400 py-8">No favorites yet.</p>';
+                container.innerHTML = '<p class="text-center text-slate-400 py-12">No favorites yet.<br>Tap ❤️ SAVE on home screen.</p>';
                 return;
             }
-            favorites.forEach((q, i) => {
+            favorites.forEach(q => {
                 const div = document.createElement('div');
                 div.className = "quote-card p-6 rounded-3xl";
                 div.innerHTML = `<p class="text-white">${q}</p>`;
@@ -211,20 +217,16 @@
             const time = document.getElementById('notif-time').value;
             if (!time) return;
             localStorage.setItem('beaman_notif_time', time);
-            document.getElementById('notification-status').innerHTML = `✅ Daily notification scheduled at <b>${time}</b>`;
-            
-            if (Notification.permission === 'default') Notification.requestPermission();
+            alert(`✅ Daily notification scheduled at ${time}`);
         }
 
         function showPrivacyPolicy() {
             window.open('privacy.html', '_blank');
         }
 
-        // Service Worker Registration
+        // Service Worker
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js')
-                .then(() => console.log('Service Worker registered'))
-                .catch(err => console.log('SW error:', err));
+            navigator.serviceWorker.register('sw.js').catch(() => {});
         }
 
         // Init
