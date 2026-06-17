@@ -8,7 +8,7 @@
   "theme_color": "#facc15",
   "id": "com.beaman.app",
   "orientation": "portrait-primary",
-  "categories": ["entertainment"],
+  "categories": ["entertainment", "lifestyle"],
   "icons": [
     {
       "src": "https://picsum.photos/id/1015/192/192",
