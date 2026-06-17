@@ -1,7 +1,7 @@
 {
   "name": "Be A Man",
   "short_name": "Be A Man",
-  "description": "Daily sarcastic Boston Be A Man quotes. Be a man.",
+  "description": "Daily sarcastic Be A Man quotes. Be a man.",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#020617",
