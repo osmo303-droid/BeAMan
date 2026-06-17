@@ -8,25 +8,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Grotesk:wght@500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Grotesk:wght@500;600;900&display=swap');
         
         body { font-family: 'Inter', system_ui, sans-serif; }
-        
-        .title-font {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 900;
-            letter-spacing: -4px;
-            color: #f8fafc;
-            text-shadow: 4px 4px 0 #020617, -2px -2px 0 #1e2937;
-            -webkit-text-stroke: 2px #020617;
-        }
-
-        .manly-btn {
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1);
-            border: 3px solid #1e2937;
-            font-weight: 800;
-            letter-spacing: 0.5px;
+        .title-font { 
+            font-family: 'Space Grotesk', sans-serif; 
+            font-weight: 900; 
+            letter-spacing: -4px; 
+            text-shadow: 4px 4px 0 #020617;
         }
         
         .app-container {
@@ -34,70 +23,120 @@
             margin: 0 auto;
             min-height: 100dvh;
             background: #020617;
+            border: 8px solid #1e2937;
+            border-radius: 3rem;
             box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.6);
             position: relative;
             overflow: hidden;
-            border: 8px solid #1e2937;
-            border-radius: 3rem;
         }
-
+        
         .app-container::before {
             content: '';
             position: absolute;
             inset: 0;
             background-image: 
-                radial-gradient(circle, rgba(245, 158, 11, 0.18) 2px, transparent 2px),
-                radial-gradient(circle, rgba(245, 158, 11, 0.09) 1px, transparent 1px),
-                linear-gradient(135deg, transparent 45%, rgba(251, 191, 36, 0.06) 50%, transparent 55%);
-            background-size: 24px 24px, 14px 14px, 90px 90px;
+                radial-gradient(circle, rgba(245,158,11,0.18) 2px, transparent 2px),
+                linear-gradient(135deg, transparent 45%, rgba(251,191,36,0.08) 50%, transparent 55%);
+            background-size: 24px 24px, 90px 90px;
+            opacity: 0.9;
             pointer-events: none;
-            z-index: 1;
-            opacity: 0.85;
-            mix-blend-mode: screen;
+            z-index: 0;
         }
-
+        
         .quote-card {
             background: linear-gradient(145deg, #1e2937, #0f172a);
             border: 5px solid #0f172a;
-            box-shadow: 8px 8px 0 #020617, -3px -3px 0 #334155, 0 0 0 2px #475569;
+            box-shadow: 8px 8px 0 #020617;
+        }
+        
+        .manly-btn {
+            transition: all 0.2s;
+            font-weight: 800;
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
 <body class="bg-slate-950 text-white">
-    <div class="app-container mx-auto">
-        <!-- HOME, FAVORITES, SETTINGS screens stay the same as before -->
-        <!-- ... (keeping your existing screens for brevity - use the previous full version) ... -->
+    <div class="app-container mx-auto relative z-10">
+        
+        <!-- HOME SCREEN -->
+        <div id="home-screen" class="screen h-full flex flex-col">
+            <div class="px-6 pt-8 pb-4 bg-slate-900">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="title-font text-5xl text-white">BE A MAN</h1>
+                        <p class="text-amber-400 text-sm">Boston Style</p>
+                    </div>
+                    <div class="w-14 h-14">
+                        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 12 L14 44 Q14 48 18 48 L34 48 Q38 48 38 44 L38 12 Z" stroke="#020617" stroke-width="5" fill="#f59e0b"/>
+                            <path d="M38 18 L46 18 Q49 18 49 21 L49 35 Q49 38 46 38 L38 38" stroke="#020617" stroke-width="5" fill="none"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
 
-        <!-- SETTINGS SCREEN (Notification part updated) -->
+            <div class="flex-1 px-6 pt-8 pb-6 flex flex-col">
+                <div id="quote-display" class="quote-card flex-1 rounded-3xl p-8 flex items-center justify-center min-h-[260px]">
+                    <div class="text-center">
+                        <p id="quote-text" class="text-white text-xl leading-tight">
+                            Tap "GENERATE QUOTE" to start being a man.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-6 pb-8 space-y-3 bg-slate-900 pt-4">
+                <button onclick="generateQuote()" class="manly-btn w-full py-6 text-xl bg-amber-400 text-black rounded-3xl border-4 border-black">
+                    GENERATE QUOTE
+                </button>
+                
+                <div class="grid grid-cols-3 gap-3">
+                    <button onclick="saveToFavorites()" class="manly-btn py-4 bg-slate-800 rounded-3xl">
+                        ❤️<br><span class="text-xs">SAVE</span>
+                    </button>
+                    <button onclick="shareQuote()" class="manly-btn py-4 bg-slate-800 rounded-3xl">
+                        ↗<br><span class="text-xs">SHARE</span>
+                    </button>
+                    <button onclick="showScreen('settings-screen')" class="manly-btn py-4 bg-slate-800 rounded-3xl">
+                        ⚙<br><span class="text-xs">SETTINGS</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAVORITES SCREEN -->
+        <div id="favorites-screen" class="screen h-full flex flex-col bg-slate-900 hidden">
+            <div class="px-6 pt-8 pb-4 flex items-center justify-between border-b border-slate-700">
+                <button onclick="showScreen('home-screen')" class="text-amber-400">← Back</button>
+                <h2 class="font-bold text-2xl">Favorites</h2>
+                <button onclick="clearFavorites()" class="text-red-400">Clear All</button>
+            </div>
+            <div id="favorites-list" class="flex-1 p-6 overflow-auto space-y-4"></div>
+        </div>
+
+        <!-- SETTINGS SCREEN -->
         <div id="settings-screen" class="screen h-full flex flex-col bg-slate-900 hidden">
-            <div class="px-6 pt-8 pb-4 flex items-center border-b border-slate-800">
-                <button onclick="showScreen('home-screen')" class="flex items-center gap-2 text-slate-400">← Back</button>
+            <div class="px-6 pt-8 pb-4 flex items-center border-b border-slate-700">
+                <button onclick="showScreen('home-screen')" class="text-amber-400">← Back</button>
                 <h2 class="font-bold text-2xl ml-4">Settings</h2>
             </div>
             
-            <div class="p-6 space-y-8 flex-1">
+            <div class="p-6 space-y-8">
                 <div>
-                    <h3 class="font-bold mb-3">Daily Notifications</h3>
-                    <label class="relative inline-flex items-center cursor-pointer mb-4">
-                        <input type="checkbox" id="notif-toggle" onchange="toggleNotifications()" class="sr-only peer">
-                        <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
-                    </label>
-
-                    <div id="notification-controls" class="hidden bg-slate-800 border border-slate-700 rounded-3xl p-5 space-y-4">
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-300 mb-2">Choose Time</label>
-                            <input type="time" id="notif-time" value="07:00" class="bg-slate-900 border border-slate-600 text-white rounded-2xl px-4 py-3 w-full">
-                        </div>
-                        
+                    <h3 class="font-bold mb-4">Daily Notifications</h3>
+                    <div class="bg-slate-800 rounded-3xl p-5">
+                        <input type="time" id="notif-time" value="08:00" class="bg-slate-900 w-full p-4 rounded-2xl text-white">
                         <button onclick="scheduleDailyNotification()" 
-                                class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-3xl">
-                            SCHEDULE DAILY NOTIFICATION
+                                class="w-full mt-4 bg-emerald-600 py-4 rounded-3xl font-bold">
+                            SCHEDULE DAILY QUOTE
                         </button>
-                        <p id="notification-status" class="text-center text-xs text-emerald-400"></p>
+                        <p id="notification-status" class="text-center text-sm mt-3 text-emerald-400"></p>
                     </div>
                 </div>
 
-                <button onclick="showPrivacyPolicy()" class="w-full bg-slate-800 py-4 rounded-3xl text-left px-6 font-semibold">
+                <button onclick="showPrivacyPolicy()" 
+                        class="w-full bg-slate-800 py-5 rounded-3xl font-semibold">
                     Privacy Policy
                 </button>
             </div>
@@ -109,66 +148,89 @@
         let currentQuote = "";
         let favorites = JSON.parse(localStorage.getItem('beaman_favorites')) || [];
 
-        // Load quotes from JSON (preferred)
         async function loadQuotes() {
             try {
-                const response = await fetch('quotes.json');
-                quotes = await response.json();
+                const res = await fetch('quotes.json');
+                quotes = await res.json();
             } catch (e) {
-                console.log("Using fallback quotes");
-                // Fallback quotes...
                 quotes = ["Don’t go food shopping. Starve. Die. Be a man."];
             }
         }
 
-        function showScreen(screenId) {
+        function showScreen(id) {
             document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
-            document.getElementById(screenId).classList.remove('hidden');
-            if (screenId === 'favorites-screen') renderFavorites();
+            document.getElementById(id).classList.remove('hidden');
+            if (id === 'favorites-screen') renderFavorites();
         }
 
-        function generateQuote() { ... } // keep your existing function
+        function generateQuote() {
+            if (quotes.length === 0) return;
+            const random = Math.floor(Math.random() * quotes.length);
+            currentQuote = quotes[random];
+            document.getElementById('quote-text').textContent = currentQuote;
+        }
 
-        // Improved Notification System
-        async function scheduleDailyNotification() {
+        function saveToFavorites() {
+            if (!currentQuote) return alert("Generate a quote first!");
+            if (favorites.includes(currentQuote)) return alert("Already saved!");
+            favorites.unshift(currentQuote);
+            localStorage.setItem('beaman_favorites', JSON.stringify(favorites));
+            alert("✅ Saved to Favorites!");
+        }
+
+        function shareQuote() {
+            if (!currentQuote) return;
+            const text = `"${currentQuote}" — Be A Man`;
+            navigator.share ? navigator.share({text}) : (navigator.clipboard.writeText(text), alert("Copied!"));
+        }
+
+        function renderFavorites() {
+            const container = document.getElementById('favorites-list');
+            container.innerHTML = '';
+            if (favorites.length === 0) {
+                container.innerHTML = '<p class="text-center text-slate-400 py-8">No favorites yet.</p>';
+                return;
+            }
+            favorites.forEach((q, i) => {
+                const div = document.createElement('div');
+                div.className = "quote-card p-6 rounded-3xl";
+                div.innerHTML = `<p class="text-white">${q}</p>`;
+                container.appendChild(div);
+            });
+        }
+
+        function clearFavorites() {
+            if (confirm("Clear all favorites?")) {
+                favorites = [];
+                localStorage.setItem('beaman_favorites', JSON.stringify(favorites));
+                renderFavorites();
+            }
+        }
+
+        function scheduleDailyNotification() {
             const time = document.getElementById('notif-time').value;
-            const statusEl = document.getElementById('notification-status');
-            
-            if (!time) return alert("Please select a time");
-
+            if (!time) return;
             localStorage.setItem('beaman_notif_time', time);
-            localStorage.setItem('beaman_notifications_enabled', 'true');
-
-            statusEl.innerHTML = `✅ Notification scheduled daily at <strong>${time}</strong>`;
-
-            // Request permission
-            if (Notification.permission === 'default') {
-                await Notification.requestPermission();
-            }
-
-            // Demo immediate notification
-            if (Notification.permission === 'granted') {
-                new Notification("Be A Man", {
-                    body: "Test notification working! Real daily ones coming soon.",
-                    icon: "https://yourdomain.com/icon.png" // optional
-                });
-            }
-        }
-
-        function toggleNotifications() {
-            const controls = document.getElementById('notification-controls');
-            controls.classList.toggle('hidden');
+            document.getElementById('notification-status').innerHTML = `✅ Daily notification scheduled at <b>${time}</b>`;
+            
+            if (Notification.permission === 'default') Notification.requestPermission();
         }
 
         function showPrivacyPolicy() {
             window.open('privacy.html', '_blank');
         }
 
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(() => console.log('Service Worker registered'))
+                .catch(err => console.log('SW error:', err));
+        }
+
         // Init
         window.onload = async () => {
             await loadQuotes();
             generateQuote();
-            loadNotificationSettings(); // your existing function
         };
     </script>
 </body>
