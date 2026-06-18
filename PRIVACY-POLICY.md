@@ -1,38 +1,25 @@
 # Privacy Policy
 
-**Last updated:** June 18, 2026
+**BE A MAN** is a fun, satirical quote app made for entertainment only.
 
-**App Name:** BE A MAN
+### No Personal Data Collected
+We do not collect, store, or transmit any personal information.  
+The app does not require login, accounts, or any form of registration.
 
-This Privacy Policy explains how the **BE A MAN** mobile application handles your information.
+### Local Storage Only
+Your favorite quotes and notification settings are saved only on your device using localStorage.  
+Nothing is sent to any server.
 
-### 1. Information We Collect
-- We do **not** collect any personal data.
-- Favorites and notification preferences are stored **only on your device** using local storage.
-- No accounts, no logins, no email collection, and no tracking.
+### Notifications
+If you enable daily notifications, they are scheduled locally on your device.  
+We do not track or store when you receive them.
 
-### 2. Permissions
-- **Notifications** — Used only to send daily random quotes if you choose to enable them. These are local notifications and do not send any data to external servers.
-- **Sharing** — Uses your device's built-in sharing system when you share a quote.
+### No Tracking or Analytics
+This app does not use cookies, analytics tools, advertising SDKs, or any third-party tracking.
 
-### 3. Data Storage
-All data (favorites and notification settings) is saved locally on your phone. Nothing is uploaded to any server.
-
-### 4. Third Parties
-- We do not share any information with third parties.
-- When you use the Share feature, it uses your phone’s native sharing capabilities.
-
-### 5. Children’s Privacy
-This app is intended for users **18 years and older**. We do not knowingly collect data from children under 18.
-
-### 6. Changes to This Policy
-We may update this Privacy Policy from time to time. Any changes will be posted in this document.
-
-### 7. Contact Us
-If you have any questions about this Privacy Policy, you can contact us via GitHub issues in the app’s repository.
+### Changes to This Policy
+We may update this policy from time to time. Any changes will be reflected in future app updates.
 
 ---
 
-**This app is a satirical humor application.** All quotes are for entertainment purposes only.
-
-Made with ❤️ for comedy.
+*This is a satirical comedy app. All content is fictional and for entertainment purposes only.*
